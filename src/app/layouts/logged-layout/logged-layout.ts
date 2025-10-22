@@ -17,11 +17,11 @@ export class LoggedLayout {
 
 openLogoutModal (){
   Swal.fire ({
-    title: "Desea cerrar sesion?",
+    title: "Quiere mantenerse loggeado?",
     showDenyButton: true,
     showCancelButton: true,
     showConfirmButton: false,
-    cancelButtonText: 'Cerrar sesion'
+    cancelButtonText: 'Si'
   }) .then((result)=>{
     if (result.isDenied){
       this.authService.logout();

@@ -7,6 +7,6 @@ export interface Contact {
     email: string,
     company: string,
     image: string,
-    isFavourite?: boolean //es opcional (?)//BORRAR
+    isFavourite: boolean 
 }
 export type NewContact= Omit<Contact,"id">;

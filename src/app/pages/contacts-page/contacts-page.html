@@ -1,13 +1,15 @@
- <div>
+  <div class="head">
   <span>Nombre</span>
   <span>Telefono</span>
   <span>Email</span>
   <span>Grupos</span>
   <span>Acciones</span>
  </div>
- <ul>
+ <ul class="card">
   @for (contactoIndividual of contactsService.contacts; track $index) {
-    <app-contact-list-item [contact]="contactoIndividual"></app-contact-list-item>
+     <a [routerLink]="['/contacts',contactoIndividual.id]"> <app-contact-list-item [contact]="contactoIndividual"></app-contact-list-item>
+    </a>
+          
   }
  </ul>
- <a routerLink="/contacts/new">+</a>
+ <a routerLink="contacts/add" class="boton">+</a>

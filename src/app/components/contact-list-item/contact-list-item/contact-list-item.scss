@@ -1,3 +1,60 @@
 .favourite{
     font-weight: bold;
 }
+
+li {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.6fr 1fr 1fr; 
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 8px;
+}
+
+
+li::marker {
+  content: "";
+}
+
+
+span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+button {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 8px;
+  background: #f3f4f6;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #e5e7eb;
+}
+
+
+.favourite {
+  background-color: #fff7ed;
+  border-color: #fcd34d;
+}
+
+.favourite span:last-child {
+  color: #f59e0b; 
+}

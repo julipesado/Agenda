@@ -1,3 +1,4 @@
+
 import { inject, Injectable } from '@angular/core';
 import { Contact, NewContact } from '../interfaces/contact';
 import { AuthService } from './auth.service';
@@ -12,7 +13,7 @@ export class ContactsService {
 
   contacts: Contact[] = []
 
-  /** Obtiene los contactos del backend */
+
   async getContacts() {
     const res = await fetch(this.URL_BASE,
       {
@@ -25,23 +26,20 @@ export class ContactsService {
     this.contacts = resJson;
   }
 
-  /** Devuelve un contato en particular segun su ID */
+  
   async getContactById(id: string | number) {
-      const res = await fetch("https://agenda-api.somee.com/api/Contacts" + "/" + id,
+    const res = await fetch(this.URL_BASE+"/"+id, 
       {
         headers: {
-          Authorization: "Bearer " + this.authService.token,
+          Authorization: "Bearer "+this.authService.token,
         },
-      })
-    if (!res.ok) {
-      return
-    }
-    const resJson: Contact = await res.json()
-    this.contacts.push(resJson);
-    return resJson
-   }
+      });
+    if(!res.ok) return;
+    const resContact:Contact = await res.json();
+    return resContact;
+  }
 
-  /** Crea un contacto */
+ 
   async createContact(nuevoContacto:NewContact) {
     const res = await fetch(this.URL_BASE, 
       {
@@ -58,37 +56,60 @@ export class ContactsService {
     return resContact;
   }
 
- async editContact(contactoEditado:Contact) { 
-  const res = await fetch("https://agenda-api.somee.com/api/Contacts" + "/" + contactoEditado,
-    {
-      method: "PUT",
-      headers : {
-        "Content-Type": "application/json",
-        Authorization: "Bearer" + this.authService.token,
-      },
-      body: JSON.stringify(contactoEditado)
-    });
-    if(!res.ok)return;
-    const resContact:Contact = await res.json()
-    this.contacts=this.contacts.map(contact => {
-      if(contact.id === resContact.id) return resContact;
-        return contact
-    })
-};
+  
+  async editContact(contactoEditado:Contact) {
+    const res = await fetch(this.URL_BASE+"/"+contactoEditado.id, 
+      {
+        method:"PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer "+this.authService.token,
+        },
+        body: JSON.stringify(contactoEditado)
+      });
+    if(!res.ok) return;
+    
+    this.contacts = this.contacts.map(contact => {
+      if(contact.id === contactoEditado.id) 
+        return contactoEditado;
+        return contact;
+      }); 
+    return contactoEditado;
+  }
 
-  /** Borra un contacto */
- async deleteContact(id:string) {
-    const res =await fetch ("https://agenda-api.somee.com/api/Contacts/"+id,
+  
+  async deleteContact(id:string | number) {
+    const res = await fetch(this.URL_BASE+"/"+id, 
       {
         method: "DELETE",
         headers: {
-          Authorization: "Bearer"+ this.authService.token,
+          Authorization: "Bearer "+this.authService.token,
         },
       });
-  if (!res.ok) return;
-  if (!res.ok) {
-    this.contacts=this.contacts.filter(contact=>contact.id!== id)
+    if(!res.ok) return;
+    if(res.ok) {
+      this.contacts = this.contacts.filter(contact => contact.id !== id); 
+    }
+    return true;
   }
-  return true;
- }
+
+  
+  async setFavourite(id:string | number ) {
+    const res = await fetch(this.URL_BASE+"/"+id+"/favourite", 
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer "+this.authService.token,
+        },
+      });
+    if(!res.ok) return;
+    
+    this.contacts = this.contacts.map(contact => {
+      if(contact.id === id) {
+        return {...contact, isFavourite: !contact.isFavourite};
+      };
+      return contact;
+    });
+    return true;
+  }
 }

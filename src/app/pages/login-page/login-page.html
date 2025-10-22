@@ -18,11 +18,13 @@
     } 
   </div>
   <button>Iniciar sesión</button>
+@if(isLoading){
+  <app-spinner></app-spinner>
+}
+
   @if (errorLogin) {
     <p class="error">Datos de sesión incorrectos, intente nuevamente.</p>
   } 
   <p>No tenés cuenta? <a routerLink="/register">Registrate</a></p>
 </form>
-<app-spinner></app-spinner>
-<a routerLink="/">Home</a>
 </div>

@@ -1,9 +1,10 @@
+
+
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../services/user-services';
 import { Spinner } from '../../components/contact-list-item/spinner/spinner';
-
 @Component({
   selector: 'app-register-page',
   imports: [RouterModule,FormsModule,Spinner],
@@ -17,8 +18,7 @@ export class RegisterPage {
   router = inject(Router);
 
   async register(form: NgForm){
-    this.errorRegister = false; //Elimino el mensaje de error
-    // Hago validación extra sobre el formulario
+    this.errorRegister = false; 
     if(!form.value.email || 
       !form.value.password || 
       !form.value.password2 || 

@@ -1,1 +1,26 @@
-<p>contact-details-page works!</p>
+@if (loading) {
+  <p>Cargando...</p>
+} @else {
+  @if (contacto) {
+    <div class="details">
+      <h1>{{ contacto.firstName }} {{ contacto.lastName }}</h1>
+      <p>Email: {{ contacto.email || '-' }}</p>
+      <p>Teléfono: {{ contacto.number || '-' }}</p>
+
+      @if (contacto.isFavourite) {
+        <p class="fav">⭐ Favorito</p>
+        <button (click)="toggleFavourite()">Desmarcar favorito</button>
+      } @else {
+        <button (click)="toggleFavourite()">Marcar como favorito</button>
+      }
+
+      <div>
+        <a [routerLink]="['/contacts', contacto.id, 'edit']">Editar</a>
+        <button (click)="deleteContact()">Eliminar</button>
+      </div>
+    </div>
+  } @else {
+    <p>No se encontró el contacto.</p>
+  }
+}
+

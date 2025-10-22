@@ -1,4 +1,5 @@
-<div id="container" class="card">
+
+<div id="container" class="container">
   <h1>Registrarse</h1>
   <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
     <div>
@@ -36,7 +37,7 @@
         <p class="error">Debe colocar una contraseña de al menos 4 caracteres.</p>
       }
     </div>
-    <button [disabled]="isLoading || registerForm.invalid">Iniciar sesión</button>
+    <button [disabled]="isLoading || registerForm.invalid">Registrarme</button>
     @if(isLoading){
       <app-spinner></app-spinner>
     }
@@ -47,5 +48,4 @@
     </p>
   </form>
 
-  <a routerLink="/">Home</a>
 </div>
